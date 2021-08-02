@@ -47,7 +47,7 @@ def main():
 
         item = ET.SubElement(data, "video")
         item.set("video", video)
-        item.set("url", "https://www.youtube.com/watch?v={}".format(video.split("-")[-1][:-4]))
+        item.set("url", "https://www.youtube.com/watch?v={}".format(video[-15:-4]))
         item.set("timestamp", str(os.path.getmtime(video)))
         item.set("isotime", datetime.datetime.fromtimestamp(os.path.getmtime(video)).isoformat())
         item.text = '\n'.join(text).rstrip()
