@@ -11,18 +11,32 @@
                 </style>
             </header>
             <body>
-                <h1>S8N – News</h1>
+                <h1>
+                    <xsl:text>S8N – News</xsl:text>
+                </h1>
                 <xsl:for-each select="root/video">
                     <xsl:sort select="@timestamp" order="descending"/>
                     <article>
                         <header>
                             <h3>
                                 <xsl:element name="a">
+                                    <xsl:attribute name="name">
+                                        <xsl:value-of select="@video"/>
+                                    </xsl:attribute>
                                     <xsl:attribute name="href">
                                         <xsl:value-of select="@url"/>
                                     </xsl:attribute>
                                     <xsl:value-of select="@video"/>
                                 </xsl:element>
+                                <xsl:text>[</xsl:text>
+                                <xsl:element name="a">
+                                    <xsl:attribute name="href">
+                                        #
+                                        <xsl:value-of select="@video"/>
+                                    </xsl:attribute>
+                                    <xsl:text>#</xsl:text>
+                                </xsl:element>
+                                <xsl:text>]</xsl:text>
                             </h3>
                         </header>
                         <p>
