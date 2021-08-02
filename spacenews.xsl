@@ -28,10 +28,10 @@
                                     </xsl:attribute>
                                     <xsl:value-of select="@video"/>
                                 </xsl:element>
-                                <xsl:text>[</xsl:text>
+                                <xsl:text> [</xsl:text>
                                 <xsl:element name="a">
                                     <xsl:attribute name="href">
-                                        #
+                                        <xsl:text>#</xsl:text>
                                         <xsl:value-of select="@video"/>
                                     </xsl:attribute>
                                     <xsl:text>#</xsl:text>
