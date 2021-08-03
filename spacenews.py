@@ -33,11 +33,9 @@ def main():
 
         text = []
         for file in sorted(glob.glob('*.png')):
-            img = cv2.imread(file, cv2.IMREAD_GRAYSCALE)
-            kernel = np.ones((1, 1), np.uint8)
-            img = cv2.dilate(img, kernel, iterations=1)
-            img = cv2.erode(img, kernel, iterations=1)
-            _, img = cv2.threshold(img, 127, 255, cv2.THRESH_BINARY+cv2.THRESH_OTSU)
+            img = cv2.imread(file, cv2.IMREAD_COLOR)
+            img = cv2.resize(img, None, fx=1.5, fy=1.5, interpolation=cv2.INTER_CUBIC)
+            img = cv2.bilateralFilter(img, 9, 25, 25)
             text.append(pytesseract.image_to_string(img, lang='deu+eng').replace('\x0c', ''))
             os.remove(file)
 
