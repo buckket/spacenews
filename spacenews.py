@@ -13,8 +13,8 @@ import youtube_dl
 
 
 def main():
-    #ydl = youtube_dl.YoutubeDL({})
-    #ydl.download(["https://www.youtube.com/channel/UCJRR3CPEVpT03fUsozSmFgA/videos"])
+    ydl = youtube_dl.YoutubeDL({})
+    ydl.download(["https://www.youtube.com/channel/UCJRR3CPEVpT03fUsozSmFgA/videos"])
 
     data = ET.Element('root')
 
