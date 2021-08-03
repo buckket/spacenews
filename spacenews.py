@@ -4,7 +4,6 @@ import glob
 import os
 import subprocess
 import time
-
 import xml.etree.ElementTree as ET
 
 import cv2
@@ -14,10 +13,9 @@ import youtube_dl
 
 
 def main():
-    ydl = youtube_dl.YoutubeDL({})
-    ydl.download(["https://www.youtube.com/channel/UCJRR3CPEVpT03fUsozSmFgA/videos"])
+    #ydl = youtube_dl.YoutubeDL({})
+    #ydl.download(["https://www.youtube.com/channel/UCJRR3CPEVpT03fUsozSmFgA/videos"])
 
-    videos = []
     data = ET.Element('root')
 
     for video in sorted(glob.glob("*.mkv"), key=os.path.getmtime):
@@ -36,13 +34,11 @@ def main():
         text = []
         for file in sorted(glob.glob('*.png')):
             img = cv2.imread(file, cv2.IMREAD_GRAYSCALE)
-            _, img = cv2.threshold(img, 127, 255, cv2.THRESH_BINARY)
-
-            kernel = np.ones((2, 2), np.uint8)
-            img = cv2.erode(img, kernel, iterations=1)
+            kernel = np.ones((1, 1), np.uint8)
             img = cv2.dilate(img, kernel, iterations=1)
-
-            text.append(pytesseract.image_to_string(img, lang='deu').replace('\x0c', ''))
+            img = cv2.erode(img, kernel, iterations=1)
+            _, img = cv2.threshold(img, 127, 255, cv2.THRESH_BINARY+cv2.THRESH_OTSU)
+            text.append(pytesseract.image_to_string(img, lang='deu+eng').replace('\x0c', ''))
             os.remove(file)
 
         item = ET.SubElement(data, "video")
