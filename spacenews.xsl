@@ -4,10 +4,9 @@
         <html>
             <header>
                 <style>
-                    body {background-color: lightgrey;}
                     footer {font-size: x-small;}
-                    pre {font-size: large;}
                     article {margin-bottom: 4em;}
+                    img {max-width: 640px; height: auto;}
                 </style>
             </header>
             <body>
@@ -18,7 +17,7 @@
                     <xsl:sort select="@timestamp" order="descending"/>
                     <article>
                         <header>
-                            <h3>
+                            <h2>
                                 <xsl:element name="a">
                                     <xsl:attribute name="name">
                                         <xsl:value-of select="@video"/>
@@ -37,13 +36,20 @@
                                     <xsl:text>#</xsl:text>
                                 </xsl:element>
                                 <xsl:text>]</xsl:text>
-                            </h3>
+                            </h2>
                         </header>
-                        <p>
-                            <pre>
-                                <xsl:value-of select="text()"/>
-                            </pre>
-                        </p>
+                        <xsl:for-each select="image">
+                            <p>
+                                <xsl:element name="img">
+                                    <xsl:attribute name="src">
+                                        <xsl:value-of select="@filename"/>
+                                    </xsl:attribute>
+                                    <xsl:attribute name="alt">
+                                        <xsl:value-of select="text()"/>
+                                    </xsl:attribute>
+                                </xsl:element>
+                            </p>
+                        </xsl:for-each>
                         <footer>
                             <xsl:element name="time">
                                 <xsl:attribute name="datetime">
