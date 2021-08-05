@@ -40,7 +40,7 @@ def main():
         item.set("isotime", datetime.datetime.fromtimestamp(mtime).isoformat())
 
         video_folder = os.path.join("gh-pages", video_id)
-        os.makedirs(video_folder)
+        os.makedirs(video_folder, exist_ok=True)
         for counter, file in enumerate(sorted(glob.glob('*.png'))):
             img = cv2.imread(file, cv2.IMREAD_COLOR)
             img = cv2.bilateralFilter(img, 9, 75, 75)
