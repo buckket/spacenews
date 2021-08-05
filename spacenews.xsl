@@ -2,13 +2,15 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
     <xsl:template match="/">
         <html>
-            <header>
+            <head>
+                <title>S8N – News</title>
+                <link rel="alternate" type="application/rss+xml" title="RSS" href="https://buckket.github.io/spacenews/rss.xml"/>
                 <style>
                     footer {font-size: x-small;}
                     article {margin-bottom: 4em;}
                     img {max-width: 640px; height: auto;}
                 </style>
-            </header>
+            </head>
             <body>
                 <h1>
                     <a href="https://www.youtube.com/channel/UCJRR3CPEVpT03fUsozSmFgA">S8N</a> – News
