@@ -7,18 +7,17 @@ import time
 import xml.etree.ElementTree as ET
 
 import cv2
-import numpy as np
 import pytesseract
 import youtube_dl
 
 
 def main():
-    ydl = youtube_dl.YoutubeDL({})
+    ydl = youtube_dl.YoutubeDL({"format": "best"})
     ydl.download(["https://www.youtube.com/channel/UCJRR3CPEVpT03fUsozSmFgA/videos"])
 
     data = ET.Element('root')
 
-    for video in sorted(glob.glob("*.mkv"), key=os.path.getmtime):
+    for video in sorted(glob.glob("*.mp4"), key=os.path.getmtime):
         subprocess.run(["ffmpeg", "-i", video, "-r", "0.25", "output_%04d.png"], stderr=subprocess.DEVNULL)
 
         files = sorted([x for x in glob.glob('*.png')])
@@ -31,23 +30,30 @@ def main():
             else:
                 img_a = img_b
 
-        text = []
-        for file in sorted(glob.glob('*.png')):
-            img = cv2.imread(file, cv2.IMREAD_COLOR)
-            img = cv2.resize(img, None, fx=1.5, fy=1.5, interpolation=cv2.INTER_CUBIC)
-            img = cv2.bilateralFilter(img, 9, 25, 25)
-            text.append(pytesseract.image_to_string(img, lang='deu+eng').replace('\x0c', ''))
-            os.remove(file)
+        video_id = video[-15:-4]
+        mtime = os.path.getmtime(video)
 
         item = ET.SubElement(data, "video")
         item.set("video", video)
-        item.set("url", "https://www.youtube.com/watch?v={}".format(video[-15:-4]))
-        item.set("timestamp", str(os.path.getmtime(video)))
-        item.set("isotime", datetime.datetime.fromtimestamp(os.path.getmtime(video)).isoformat())
-        item.text = '\n'.join(text).rstrip()
-        print("New video {} from {}".format(video, time.ctime(os.path.getmtime(video))))
+        item.set("url", "https://www.youtube.com/watch?v={}".format(video_id))
+        item.set("timestamp", str(mtime))
+        item.set("isotime", datetime.datetime.fromtimestamp(mtime).isoformat())
 
-    with open("spacenews.xml", "w") as file:
+        video_folder = os.path.join("gh-pages", video_id)
+        os.makedirs(video_folder)
+        for counter, file in enumerate(sorted(glob.glob('*.png'))):
+            img = cv2.imread(file, cv2.IMREAD_COLOR)
+            img = cv2.bilateralFilter(img, 9, 75, 75)
+            text = pytesseract.image_to_string(img, lang='deu+eng').replace('\x0c', '')
+            os.rename(file, os.path.join(video_folder, "{}.png".format(counter)))
+            subprocess.run(["optipng", os.path.join(video_folder, "{}.png".format(counter))], stderr=subprocess.DEVNULL)
+            image = ET.SubElement(item, "image")
+            image.set("filename", os.path.join(video_id, "{}.png".format(counter)))
+            image.text = text.rstrip()
+
+        print("New video {} from {}".format(video, time.ctime(mtime)))
+
+    with open(os.path.join("gh-pages", "spacenews.xml"), "w") as file:
         ET.indent(data)
         file.write('<?xml version="1.0" encoding="UTF-8" ?>\n')
         file.write('<?xml-stylesheet type="text/xsl" href="spacenews.xsl"?>\n')
