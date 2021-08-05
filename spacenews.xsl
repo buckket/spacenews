@@ -6,13 +6,13 @@
                 <style>
                     body {background-color: lightgrey;}
                     footer {font-size: x-small;}
-                    p {font-size: large;}
+                    pre {font-size: large;}
                     article {margin-bottom: 4em;}
                 </style>
             </header>
             <body>
                 <h1>
-                    <xsl:text>S8N – News</xsl:text>
+                    <a href="https://www.youtube.com/channel/UCJRR3CPEVpT03fUsozSmFgA">S8N</a> – News
                 </h1>
                 <xsl:for-each select="root/video">
                     <xsl:sort select="@timestamp" order="descending"/>
