@@ -9,9 +9,10 @@
                 <style>
                     footer {font-size: x-small;}
                     article {margin-bottom: 4em;}
-                    div.text {font-size: large;}
+                    span.text {font-size: large;}
                     img {max-width: 640px; height: auto;}
                 </style>
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
             </head>
             <body>
                 <h1>
@@ -65,7 +66,7 @@
                                     </p>
                                 </xsl:when>
                                 <xsl:otherwise>
-                                    <div class="text"><pre><xsl:value-of select="text()"/></pre></div>
+                                    <pre><span class="text"><xsl:value-of select="text()"/></span></pre>
                                 </xsl:otherwise>
                             </xsl:choose>
                         </xsl:for-each>
