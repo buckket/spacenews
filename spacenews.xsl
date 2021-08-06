@@ -9,6 +9,7 @@
                 <style>
                     footer {font-size: x-small;}
                     article {margin-bottom: 4em;}
+                    pre {font-size: large;}
                     img {max-width: 640px; height: auto;}
                 </style>
             </head>
