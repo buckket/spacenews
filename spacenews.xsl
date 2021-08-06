@@ -8,8 +8,7 @@
                 <link rel="alternate" type="application/rss+xml" title="RSS" href="https://buckket.github.io/spacenews/rss.xml"/>
                 <style>
                     footer {font-size: x-small;}
-                    article {margin-bottom: 4em;}
-                    span.text {font-size: 120%;}
+                    article {margin-bottom: 4em; font-size: large;}
                     img {max-width: 640px; height: auto;}
                 </style>
             </head>
@@ -65,7 +64,7 @@
                                     </p>
                                 </xsl:when>
                                 <xsl:otherwise>
-                                    <pre><span class="text"><xsl:value-of select="text()"/></span></pre>
+                                    <pre><xsl:value-of select="text()"/></pre>
                                 </xsl:otherwise>
                             </xsl:choose>
                         </xsl:for-each>
