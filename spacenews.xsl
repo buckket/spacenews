@@ -14,7 +14,15 @@
             </head>
             <body>
                 <h1>
-                    <a href="https://www.youtube.com/channel/UCJRR3CPEVpT03fUsozSmFgA">S8N</a> – News
+                    <a href="https://www.youtube.com/channel/UCJRR3CPEVpT03fUsozSmFgA">S8N</a> – News – Format:
+                    <xsl:choose>
+                        <xsl:when test="$format='image'">
+                            <a href="spacenews_text.html">[TEXT]</a>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <a href="/">[IMG]</a>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </h1>
                 <xsl:for-each select="root/video">
                     <xsl:sort select="@isotime" order="descending"/>
@@ -42,16 +50,23 @@
                             </h2>
                         </header>
                         <xsl:for-each select="image">
-                            <p>
-                                <xsl:element name="img">
-                                    <xsl:attribute name="src">
-                                        <xsl:value-of select="@filename"/>
-                                    </xsl:attribute>
-                                    <xsl:attribute name="alt">
-                                        <xsl:value-of select="text()"/>
-                                    </xsl:attribute>
-                                </xsl:element>
-                            </p>
+                            <xsl:choose>
+                                <xsl:when test="$format='image'">
+                                    <p>
+                                        <xsl:element name="img">
+                                            <xsl:attribute name="src">
+                                                <xsl:value-of select="@filename"/>
+                                            </xsl:attribute>
+                                            <xsl:attribute name="alt">
+                                                <xsl:value-of select="text()"/>
+                                            </xsl:attribute>
+                                        </xsl:element>
+                                    </p>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <pre><xsl:value-of select="text()"/></pre>
+                                </xsl:otherwise>
+                            </xsl:choose>
                         </xsl:for-each>
                         <footer>
                             <xsl:element name="time">
