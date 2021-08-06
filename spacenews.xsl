@@ -20,7 +20,7 @@
                             <a href="spacenews_text.html">[TEXT]</a>
                         </xsl:when>
                         <xsl:otherwise>
-                            <a href="/">[IMG]</a>
+                            <a href="spacenews.html">[IMG]</a>
                         </xsl:otherwise>
                     </xsl:choose>
                 </h1>
