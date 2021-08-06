@@ -12,7 +12,6 @@
                     section {font-size: large;}
                     img {max-width: 640px; height: auto;}
                 </style>
-                <meta name="viewport" content="width=device-width, maximum-scale=1.0, user-scalable=yes"/>
             </head>
             <body>
                 <h1>
@@ -30,7 +29,7 @@
                     <xsl:sort select="@isotime" order="descending"/>
                     <article>
                         <header>
-                            <h2>
+                            <h3>
                                 <xsl:element name="a">
                                     <xsl:attribute name="id">
                                         <xsl:value-of select="@video"/>
@@ -49,7 +48,7 @@
                                     <xsl:text>#</xsl:text>
                                 </xsl:element>
                                 <xsl:text>]</xsl:text>
-                            </h2>
+                            </h3>
                         </header>
                         <section>
                             <xsl:for-each select="image">
