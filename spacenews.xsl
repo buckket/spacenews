@@ -9,7 +9,7 @@
                 <style>
                     footer {font-size: x-small;}
                     article {margin-bottom: 4em;}
-                    pre {font-size: large;}
+                    span.text {font-size: large;}
                     img {max-width: 640px; height: auto;}
                 </style>
             </head>
@@ -65,7 +65,7 @@
                                     </p>
                                 </xsl:when>
                                 <xsl:otherwise>
-                                    <pre><xsl:value-of select="text()"/></pre>
+                                    <pre><span class="text"><xsl:value-of select="text()"/></span></pre>
                                 </xsl:otherwise>
                             </xsl:choose>
                         </xsl:for-each>
