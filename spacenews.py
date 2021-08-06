@@ -5,6 +5,7 @@ import os
 import subprocess
 import time
 import xml.etree.ElementTree as ET
+import email.utils
 
 import cv2
 import pytesseract
@@ -36,8 +37,8 @@ def main():
         item = ET.SubElement(data, "video")
         item.set("video", video)
         item.set("url", "https://www.youtube.com/watch?v={}".format(video_id))
-        item.set("timestamp", str(mtime))
         item.set("isotime", datetime.datetime.fromtimestamp(mtime).isoformat())
+        item.set("pubDate", email.utils.formatdate(mtime))
 
         video_folder = os.path.join("gh-pages", video_id)
         os.makedirs(video_folder, exist_ok=True)
