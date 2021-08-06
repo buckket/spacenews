@@ -18,12 +18,8 @@
                                 <xsl:text disable-output-escaping="yes">&lt;![CDATA[</xsl:text>
                                 <p>
                                     <xsl:element name="img">
-                                        <xsl:attribute name="src">
-                                            https://buckket.github.io/spacenews/<xsl:value-of select="@filename"/>
-                                        </xsl:attribute>
-                                        <xsl:attribute name="alt">
-                                            <xsl:value-of select="text()"/>
-                                        </xsl:attribute>
+                                        <xsl:attribute name="src">https://buckket.github.io/spacenews/<xsl:value-of select="@filename"/></xsl:attribute>
+                                        <xsl:attribute name="alt"><xsl:value-of select="text()"/></xsl:attribute>
                                     </xsl:element>
                                 </p>
                                 <xsl:text disable-output-escaping="yes">]]&gt;</xsl:text>
