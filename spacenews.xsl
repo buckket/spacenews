@@ -9,7 +9,7 @@
                 <style>
                     footer {font-size: x-small;}
                     article {margin-bottom: 4em;}
-                    span.text {font-size: large;}
+                    span.text {font-size: 120%;}
                     img {max-width: 640px; height: auto;}
                 </style>
             </head>
