@@ -7,13 +7,14 @@
                 <title>S8N</title>
                 <link>https://buckket.github.io/spacenews/</link>
                 <description>Feinste Storys, Big Emotions by Spacesurfer</description>
-                <atom:link href="https://buckket.github.io/spacenews/rss.xml" rel="self" type="application/rss+xml" />
+                <atom:link href="https://buckket.github.io/spacenews/rss.xml" rel="self" type="application/rss+xml"/>
                 <xsl:for-each select="root/video">
-                    <xsl:sort select="@timestamp" order="descending"/>
+                    <xsl:sort select="@isotime" order="descending"/>
                     <item>
                         <title><xsl:value-of select="@video"/></title>
                         <link>https://buckket.github.io/spacenews/#<xsl:value-of select="@video"/></link>
                         <guid>https://buckket.github.io/spacenews/#<xsl:value-of select="@video"/></guid>
+                        <pubDate><xsl:value-of select="@pubDate"/></pubDate>
                         <description>
                             <xsl:for-each select="image">
                                 <xsl:text disable-output-escaping="yes">&lt;![CDATA[</xsl:text>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
     <xsl:output method="html" encoding="UTF-8" indent="yes" doctype-system="about:legacy-compat"/>
-
     <xsl:template match="/">
         <html lang="de">
             <head>
@@ -18,7 +17,7 @@
                     <a href="https://www.youtube.com/channel/UCJRR3CPEVpT03fUsozSmFgA">S8N</a> – News
                 </h1>
                 <xsl:for-each select="root/video">
-                    <xsl:sort select="@timestamp" order="descending"/>
+                    <xsl:sort select="@isotime" order="descending"/>
                     <article>
                         <header>
                             <h2>
