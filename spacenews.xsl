@@ -12,7 +12,6 @@
                     span.text {font-size: large;}
                     img {max-width: 640px; height: auto;}
                 </style>
-                <meta name="viewport" content="width=device-width, initial-scale=1" />
             </head>
             <body>
                 <h1>
