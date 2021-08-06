@@ -3,7 +3,7 @@
     <xsl:output method="html" encoding="UTF-8" indent="yes" doctype-system="about:legacy-compat" />
 
     <xsl:template match="/">
-        <html>
+        <html lang="de">
             <head>
                 <title>S8N – News</title>
                 <link rel="alternate" type="application/rss+xml" title="RSS" href="https://buckket.github.io/spacenews/rss.xml"/>
@@ -23,7 +23,7 @@
                         <header>
                             <h2>
                                 <xsl:element name="a">
-                                    <xsl:attribute name="name">
+                                    <xsl:attribute name="id">
                                         <xsl:value-of select="@video"/>
                                     </xsl:attribute>
                                     <xsl:attribute name="href">
