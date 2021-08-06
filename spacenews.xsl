@@ -65,7 +65,7 @@
                                     </p>
                                 </xsl:when>
                                 <xsl:otherwise>
-                                    <pre><span class="text"><xsl:value-of select="text()"/></span></pre>
+                                    <span class="text"><pre><xsl:value-of select="text()"/></pre></span>
                                 </xsl:otherwise>
                             </xsl:choose>
                         </xsl:for-each>
