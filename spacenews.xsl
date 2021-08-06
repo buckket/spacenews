@@ -9,7 +9,7 @@
                 <style>
                     footer {font-size: x-small;}
                     article {margin-bottom: 4em;}
-                    section {font-size: large;}
+                    span.text {font-size: large;}
                     img {max-width: 640px; height: auto;}
                 </style>
             </head>
@@ -29,7 +29,7 @@
                     <xsl:sort select="@isotime" order="descending"/>
                     <article>
                         <header>
-                            <h3>
+                            <h2>
                                 <xsl:element name="a">
                                     <xsl:attribute name="id">
                                         <xsl:value-of select="@video"/>
@@ -48,9 +48,8 @@
                                     <xsl:text>#</xsl:text>
                                 </xsl:element>
                                 <xsl:text>]</xsl:text>
-                            </h3>
+                            </h2>
                         </header>
-                        <section>
                             <xsl:for-each select="image">
                                 <xsl:choose>
                                     <xsl:when test="$format='image'">
@@ -66,11 +65,10 @@
                                         </p>
                                     </xsl:when>
                                     <xsl:otherwise>
-                                        <pre><xsl:value-of select="text()"/></pre>
+                                        <pre><span class="text"><xsl:value-of select="text()"/></span></pre>
                                     </xsl:otherwise>
                                 </xsl:choose>
                             </xsl:for-each>
-                        </section>
                         <footer>
                             <xsl:element name="time">
                                 <xsl:attribute name="datetime">
