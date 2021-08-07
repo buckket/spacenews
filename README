@@ -1,0 +1,17 @@
+spacenews
+~~~~~~~~~
+
+Ey, Leute. Check it out: S8N.
+Das könnte ich mir stundenlang durchlesen. Feinste Storys, mit Big Emotions.
+
+zl;ng:
+Standbilder aus YouTube Videos extrahieren, OCR darüber, XSLT Magie.
+Zack fertig: spacenews.
+
+Abhängigkeiten:
+- tesseract 
+- youtube-dl
+- optipng
+- ffmpeg
+- xsltproc
+

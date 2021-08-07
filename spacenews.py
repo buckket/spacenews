@@ -11,13 +11,14 @@ import cv2
 import pytesseract
 import youtube_dl
 
+tessdata_dir_config = r'--tessdata-dir "tessdata"'
+
 
 def main():
     ydl = youtube_dl.YoutubeDL({"format": "best"})
     ydl.download(["https://www.youtube.com/channel/UCJRR3CPEVpT03fUsozSmFgA/videos"])
 
     data = ET.Element('root')
-
     for video in sorted(glob.glob("*.mp4"), key=os.path.getmtime):
         subprocess.run(["ffmpeg", "-i", video, "-r", "0.25", "output_%04d.png"], stderr=subprocess.DEVNULL)
 
@@ -44,14 +45,13 @@ def main():
         os.makedirs(video_folder, exist_ok=True)
         for counter, file in enumerate(sorted(glob.glob('*.png'))):
             img = cv2.imread(file, cv2.IMREAD_COLOR)
-            img = cv2.bilateralFilter(img, 9, 75, 75)
-            text = pytesseract.image_to_string(img, lang='deu+eng').replace('\x0c', '')
+            text = pytesseract.image_to_string(img, lang='deu+eng', config=tessdata_dir_config).replace('\x0c', '')
             os.rename(file, os.path.join(video_folder, "{}.png".format(counter)))
-            subprocess.run(["optipng", os.path.join(video_folder, "{}.png".format(counter))], stderr=subprocess.DEVNULL)
+            subprocess.run(["optipng", "-o7", os.path.join(video_folder, "{}.png".format(counter))],
+                           stderr=subprocess.DEVNULL)
             image = ET.SubElement(item, "image")
             image.set("filename", os.path.join(video_id, "{}.png".format(counter)))
-            image.text = text.rstrip()
-
+            image.text = text.strip()
         print("New video {} from {}".format(video, time.ctime(mtime)))
 
     with open(os.path.join("gh-pages", "spacenews.xml"), "w") as file:
