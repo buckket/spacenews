@@ -18,10 +18,19 @@ def main():
     ydl = youtube_dl.YoutubeDL({"format": "best"})
     ydl.download(["https://www.youtube.com/channel/UCJRR3CPEVpT03fUsozSmFgA/videos"])
 
-    data = ET.Element('root')
-    for video in sorted(glob.glob("*.mp4"), key=os.path.getmtime):
-        subprocess.run(["ffmpeg", "-i", video, "-r", "0.25", "output_%04d.png"], stderr=subprocess.DEVNULL)
+    root = ET.Element("root")
+    try:
+        tree = ET.parse(os.path.join("gh-pages", "spacenews.xml"))
+        root = tree.getroot()
+    except (ET.ParseError, FileNotFoundError) as e:
+        print("Could not parse old data, starting fresh ({})".format(e))
 
+    for video in sorted(glob.glob("*.mp4"), key=os.path.getmtime):
+        if root.find("video[@video='{}']".format(video)):
+            print("Skipping video {}".format(video))
+            continue
+
+        subprocess.run(["ffmpeg", "-i", video, "-r", "0.25", "output_%04d.png"], stderr=subprocess.DEVNULL)
         files = sorted([x for x in glob.glob('*.png')])
         img_a = cv2.imread(files.pop(0), cv2.IMREAD_COLOR)
         for file in files:
@@ -35,7 +44,7 @@ def main():
         video_id = video[-15:-4]
         mtime = os.path.getmtime(video)
 
-        item = ET.SubElement(data, "video")
+        item = ET.SubElement(root, "video")
         item.set("video", video)
         item.set("url", "https://www.youtube.com/watch?v={}".format(video_id))
         item.set("isotime", datetime.datetime.fromtimestamp(mtime).isoformat())
@@ -55,10 +64,10 @@ def main():
         print("New video {} from {}".format(video, time.ctime(mtime)))
 
     with open(os.path.join("gh-pages", "spacenews.xml"), "w") as file:
-        ET.indent(data)
+        ET.indent(root)
         file.write('<?xml version="1.0" encoding="UTF-8" ?>\n')
         file.write('<?xml-stylesheet type="text/xsl" href="spacenews.xsl"?>\n')
-        file.write(ET.tostring(data, encoding="unicode"))
+        file.write(ET.tostring(root, encoding="unicode"))
 
 
 if __name__ == '__main__':
