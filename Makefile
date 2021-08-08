@@ -7,6 +7,8 @@ spacenews_text.html: spacenews.xsl spacenews.xml
 rss.xml: rss.xsl spacenews.xml
 	xsltproc $^ > $@
 
+.PHONY: all clean publish
+
 all: spacenews.html spacenews_text.html rss.xml
 
 clean:
