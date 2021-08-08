@@ -1,5 +1,9 @@
-gh-pages/spacenews.xml:
+gh-pages/spacenews.xml: FORCE
 	python spacenews.py
+
+.PHONY: FORCE all publish clean
+
+FORCE:
 
 all: gh-pages/spacenews.xml
 	$(MAKE) -C gh-pages all
