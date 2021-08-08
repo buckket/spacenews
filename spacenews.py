@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+
 import datetime
 import glob
 import os
@@ -15,7 +16,7 @@ tessdata_dir_config = r'--tessdata-dir "tessdata"'
 
 
 def main():
-    ydl = youtube_dl.YoutubeDL({"format": "best"})
+    ydl = youtube_dl.YoutubeDL({"format": "best", "download_archive": "downloaded_videos"})
     ydl.download(["https://www.youtube.com/channel/UCJRR3CPEVpT03fUsozSmFgA/videos"])
 
     root = ET.Element("root")
